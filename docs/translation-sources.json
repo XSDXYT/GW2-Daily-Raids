@@ -1,0 +1,162 @@
+{
+  "checked_at": "2026-10-21",
+  "method": "English Wiki entity identity; Chinese Wiki bilingual entries and indexed in-game text tables",
+  "mirror_requested": "https://wiki.wishingstar.top/wiki",
+  "access_note": "English Wiki and requested mirror article fetches returned 403/unavailable in this session. Indexed Wiki results were used; no claim of direct mirror verification.",
+  "corrections": {
+    "shiverpeaks": {
+      "instance": "席瓦雪山小径",
+      "bounty": "席瓦雪山小径"
+    },
+    "voice-claw": {
+      "instance": "亡者之音和亡者之爪",
+      "bounty": "亡者之音和亡者之爪"
+    },
+    "aetherblade": {
+      "boss": "美琴船长 · 绯红刺荆的回响"
+    },
+    "cosmic": {
+      "instance": "宇宙观测台",
+      "bounty": "宇宙观测台"
+    },
+    "xunlai": {
+      "instance": "桑莱废料场",
+      "bounty": "桑莱废料场"
+    },
+    "febe": {
+      "instance": "菲勃神殿",
+      "bounty": "菲勃神殿"
+    },
+    "construct": {
+      "instance": "信仰要塞"
+    },
+    "xera": {
+      "instance": "信仰要塞"
+    },
+    "kela": {
+      "boss": "海浪总管齐拉",
+      "bounty": "齐拉"
+    },
+    "slothasor": {
+      "instance": "救赎小道"
+    },
+    "matthias": {
+      "instance": "救赎小道"
+    },
+    "largos": {
+      "bounty": "孪生蝶翼人"
+    },
+    "decima": {
+      "instance": "巴里尔山"
+    },
+    "ura": {
+      "instance": "巴里尔山"
+    },
+    "greer": {
+      "instance": "巴里尔山"
+    },
+    "olc": {
+      "boss": "",
+      "instance": "旧雄狮广场",
+      "bounty": "旧雄狮广场"
+    }
+  },
+  "sources": [
+    {
+      "english": "Shiverpeaks Pass",
+      "chinese": "席瓦雪山小径",
+      "source": "https://gw2.huijiwiki.com/wiki/Project:Trans/Sector"
+    },
+    {
+      "english": "Voice of the Fallen and Claw of the Fallen",
+      "chinese": "亡者之音和亡者之爪",
+      "source": "https://gw2.huijiwiki.com/wiki/大型地下城"
+    },
+    {
+      "english": "Stronghold of the Faithful",
+      "chinese": "信仰要塞",
+      "source": "https://gw2.huijiwiki.com/wiki/Project:Trans/NamedText"
+    },
+    {
+      "english": "Salvation Pass",
+      "chinese": "救赎小道",
+      "source": "https://gw2.huijiwiki.com/wiki/Project:Trans/NamedText"
+    },
+    {
+      "english": "Mount Balrior",
+      "chinese": "巴里尔山",
+      "source": "https://gw2.huijiwiki.com/wiki/蒸汽尖啸者厄拉"
+    },
+    {
+      "english": "Cosmic Observatory",
+      "chinese": "宇宙观测台",
+      "source": "https://gw2.huijiwiki.com/wiki/宇宙观测台"
+    },
+    {
+      "english": "Temple of Febe",
+      "chinese": "菲勃神殿",
+      "source": "https://gw2.huijiwiki.com/wiki/缩写"
+    },
+    {
+      "english": "Xunlai Jade Junkyard",
+      "chinese": "桑莱废料场",
+      "source": "https://gw2.huijiwiki.com/wiki/游戏更新/2022-5-13"
+    },
+    {
+      "english": "Old Lion's Court",
+      "chinese": "旧雄狮广场",
+      "source": "https://gw2.huijiwiki.com/wiki/游戏更新/2022-11-11"
+    },
+    {
+      "english": "Kela, Seneschal of Waves",
+      "chinese": "海浪总管齐拉",
+      "source": "https://gw2.huijiwiki.com/wiki/海浪总管齐拉"
+    },
+    {
+      "english": "Echo of Scarlet Briar",
+      "chinese": "绯红刺荆的回响",
+      "source": "https://gw2.huijiwiki.com/wiki/游戏更新/2022-5-13"
+    },
+    {
+      "english": "Twin Largos",
+      "chinese": "孪生蝶翼人",
+      "source": "https://gw2.huijiwiki.com/index.php?title=属性:Has_name_en&offset=41015&limit=100"
+    },
+    {
+      "english": "Spirit Vale",
+      "chinese": "灵魂山谷",
+      "source": "https://gw2.huijiwiki.com/wiki/灵魂山谷"
+    },
+    {
+      "english": "Mythwright Gambit",
+      "chinese": "秘法对决",
+      "source": "https://gw2.huijiwiki.com/wiki/秘法对决"
+    },
+    {
+      "english": "Legendary Icebrood Construct",
+      "chinese": "传奇冰巢构造体",
+      "source": "https://gw2.huijiwiki.com/wiki/大型地下城"
+    },
+    {
+      "english": "Guardian's Glade",
+      "chinese": "守护者林地",
+      "source": "https://gw2.huijiwiki.com/wiki/海浪总管齐拉"
+    },
+    {
+      "english": "Harvest Temple",
+      "chinese": "丰收神殿",
+      "source": "https://gw2.huijiwiki.com/wiki/丰收神殿"
+    },
+    {
+      "english": "Cold War",
+      "chinese": "冷战",
+      "source": "https://gw2.huijiwiki.com/wiki/Project:Trans/NamedText"
+    },
+    {
+      "english": "Watchknight Triumvirate",
+      "chinese": null,
+      "source": "https://wiki.guildwars2.com/wiki/Watchknight_Triumvirate",
+      "status": "Chinese collective name unverified; use original English"
+    }
+  ]
+}

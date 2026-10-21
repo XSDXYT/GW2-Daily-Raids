@@ -182,12 +182,15 @@ test('blocked storage does not prevent language switching', () => {
   assert.equal(app.documentElement.lang, 'en');
 });
 
-test('all 36 entries have Chinese names and English data stays unchanged', () => {
+test('all 36 entries display translated names or a deliberate English fallback', () => {
   const { context } = setup({ language: 'zh' });
   const I = context.GW2_I18N;
   for (const [id, entry] of Object.entries(context.GW2_DATA.encounters)) {
     for (const field of ['boss', 'instance', 'bounty']) {
-      assert.match(I.encounter({ id, ...entry }, field), /[\u4e00-\u9fff]/, `${id}.${field}`);
+      const displayed = I.encounter({ id, ...entry }, field);
+      assert.ok(displayed && displayed.trim(), `${id}.${field} must not be blank`);
+      if (context.GW2_ENCOUNTERS_ZH[id][field]) assert.match(displayed, /[\u4e00-\u9fff]/, `${id}.${field}`);
+      else assert.equal(displayed, entry[field], `${id}.${field} must fall back to English`);
     }
   }
   const futureItem = { id: 'future-encounter', boss: 'Future boss' };
@@ -211,4 +214,28 @@ test('every annotated label has a translation and unrecognized preferences use C
       }
     }
   }
+});
+
+test('Wiki-backed corrections are consistent in names and copy text', async () => {
+  const app = setup({ language: 'zh' });
+  const I = app.context.GW2_I18N;
+  const entries = app.context.GW2_DATA.encounters;
+  const expected = {
+    construct: '信仰要塞', slothasor: '救赎小道', decima: '巴里尔山',
+    cosmic: '宇宙观测台', febe: '菲勃神殿', xunlai: '桑莱废料场', olc: '旧雄狮广场', shiverpeaks: '席瓦雪山小径'
+  };
+  for (const [id, instance] of Object.entries(expected)) {
+    assert.equal(I.encounter({ id, ...entries[id] }, 'instance'), instance);
+  }
+  assert.equal(I.encounter({ id: 'kela', ...entries.kela }, 'boss'), '海浪总管齐拉');
+  assert.equal(I.encounter({ id: 'olc', ...entries.olc }, 'boss'), 'Watchknight Triumvirate');
+  assert.equal(I.encounter({ id: 'aetherblade', ...entries.aetherblade }, 'boss'), '美琴船长 · 绯红刺荆的回响');
+  app.setNow('2026-10-25T12:00:00Z');
+  await app.click();
+  assert.match(app.writes[0], /信仰要塞/);
+  assert.doesNotMatch(app.writes[0], /忠诚要塞/);
+  I.setLanguage('en');
+  await app.click();
+  assert.match(app.writes[1], /Stronghold of the Faithful/);
+  assert.doesNotMatch(app.writes[1], /信仰要塞/);
 });

@@ -3,22 +3,26 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#15181c">
+  <meta name="theme-color" content="#101715">
   <meta name="description" content="快速查看激战2今日四个日常 Boss 及所属副本，一键复制分享，支持未来七天与完整12天轮换查询。" data-i18n-content="descriptionToday">
   <title data-i18n="todayTitle">今日日常 · GW2 Raid Bounties</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/css/today.css?v=2">
+  <link rel="stylesheet" href="assets/css/styles.css?v=3">
+  <link rel="stylesheet" href="assets/css/today.css?v=3">
   <script defer src="assets/js/data.js"></script>
   <script defer src="assets/js/rotation.js"></script>
-  <script defer src="assets/js/encounters-zh.js?v=2"></script>
-  <script defer src="assets/js/i18n.js?v=2"></script>
-  <script defer src="assets/js/app.js?v=2"></script>
+  <script defer src="assets/js/encounters-zh.js?v=3"></script>
+  <script defer src="assets/js/i18n.js?v=3"></script>
+  <script defer src="assets/js/app.js?v=3"></script>
 </head>
 <body data-page="today">
   <a class="skip-link" href="#main-content"><span data-i18n="skip">跳转到主要内容</span></a>
   <div class="site-shell">
     <header class="site-header">
-      <a class="brand" href="index.html">GW2 <span><span data-i18n="brand">日常查询</span></span></a>
+      <a class="brand" href="index.html" aria-label="返回GW2日常十人本首页" data-i18n-aria-label="homeAria">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none"><path d="m20 3 15 9v16l-15 9L5 28V12Z" stroke="currentColor"/></path><path d="m12 27 5-14 3 6 3-6 5 14-8-5Z" fill="currentColor"/></path><path d="m20 6 2 4-2 3-2-3Z" fill="currentColor"/></path></svg></span>
+        <span class="brand-copy"><strong>GW2 <span>RAID</span></strong><small><span data-i18n="tagline">泰瑞亚 · 每日悬赏指南</span></small></span>
+      </a>
       <nav class="nav" aria-label="主导航" data-i18n-aria-label="nav">
         <a href="index.html" class="nav-link active" aria-current="page"><span data-i18n="today">今日日常</span></a>
         <a href="rotation.html" class="nav-link"><span data-i18n="rotation">12天循环表</span></a>
@@ -27,11 +31,13 @@
     </header>
     <main id="main-content">
       <section class="today-section" aria-labelledby="today-heading">
+        <div class="today-summary">
         <div class="today-heading">
           <div><h1 id="today-heading"><span data-i18n="today">今日日常</span></h1><p class="date-line"><span id="today-date"><span data-i18n="loadingDate">读取当前日期…</span></span><span id="cycle-label"><span data-i18n="loadingCycle">轮换计算中</span></span></p></div>
           <button id="copy-today" class="primary-button" type="button" disabled><span data-i18n="copy">一键复制今日日常</span></button>
         </div>
         <p class="reset-line"><span data-i18n="resetRule">每日北京时间 08:00 刷新</span> <span aria-hidden="true">·</span> <span><span data-i18n="resetRemaining">距离刷新</span></span> <span id="countdown" role="timer" aria-label="距离下一次刷新" data-i18n-aria-label="resetTimer">--:--:--</span></p>
+        </div>
         <p id="copy-status" class="copy-status" role="status" aria-live="polite"></p>
         <div id="copy-fallback" class="copy-fallback" hidden>
           <label for="copy-text"><span data-i18n="manualHelp">自动复制不可用，请长按或选中下方文字复制。</span></label>

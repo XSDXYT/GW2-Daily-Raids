@@ -23,8 +23,9 @@
   }
 
   function makeBossCard(item) {
-    const row = element('article', 'boss-row');
-    row.append(element('span', 'group-number', `0${item.group}`));
+    const row = element('article', `boss-row group-${item.group}`);
+    row.setAttribute('data-number', `0${item.group}`);
+    row.append(element('span', 'group-number', t('groupLabel', { n: item.group })));
     row.append(element('h3', 'boss-name', name(item, 'boss')));
     const instance = element('p', 'boss-instance');
     instance.append(element('span', 'instance-label', t('instancePrefix')));

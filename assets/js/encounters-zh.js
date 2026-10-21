@@ -1,14 +1,14 @@
-/* 中文 Boss 优先采用用户提供的 gw2_database.json v1.3.0。补充译名见 docs/translations.md。 */
+/* 名称来源及核验范围见 docs/translations.md；空中文值由 i18n.js 回退英文。 */
 globalThis.GW2_ENCOUNTERS_ZH = Object.freeze({
   "shiverpeaks": {
     "boss": "传奇冰巢构造体",
-    "instance": "席瓦雪山隘口",
-    "bounty": "席瓦雪山隘口"
+    "instance": "席瓦雪山小径",
+    "bounty": "席瓦雪山小径"
   },
   "voice-claw": {
     "boss": "亡者之音 · 亡者之爪",
-    "instance": "亡者之音与爪",
-    "bounty": "亡者之音与爪"
+    "instance": "亡者之音和亡者之爪",
+    "bounty": "亡者之音和亡者之爪"
   },
   "fraenir": {
     "boss": "卓玛爪牙法兰涅尔",
@@ -31,7 +31,7 @@ globalThis.GW2_ENCOUNTERS_ZH = Object.freeze({
     "bounty": "末世魔监工"
   },
   "aetherblade": {
-    "boss": "美琴船长 · 猩红幻象",
+    "boss": "美琴船长 · 绯红刺荆的回响",
     "instance": "以太之刃藏身处",
     "bounty": "以太之刃藏身处"
   },
@@ -52,8 +52,8 @@ globalThis.GW2_ENCOUNTERS_ZH = Object.freeze({
   },
   "cosmic": {
     "boss": "德格达",
-    "instance": "宇宙天文台",
-    "bounty": "宇宙天文台"
+    "instance": "宇宙观测台",
+    "bounty": "宇宙观测台"
   },
   "coldwar": {
     "boss": "风暴之声瓦里尼亚",
@@ -72,37 +72,37 @@ globalThis.GW2_ENCOUNTERS_ZH = Object.freeze({
   },
   "xunlai": {
     "boss": "安卡",
-    "instance": "荀来玉石垃圾场",
-    "bounty": "荀来玉石垃圾场"
+    "instance": "桑莱废料场",
+    "bounty": "桑莱废料场"
   },
   "febe": {
     "boss": "塞鲁斯",
-    "instance": "菲比神殿",
-    "bounty": "菲比神殿"
+    "instance": "菲勃神殿",
+    "bounty": "菲勃神殿"
   },
   "construct": {
     "boss": "要塞构造体",
-    "instance": "忠诚要塞",
+    "instance": "信仰要塞",
     "bounty": "要塞构造体"
   },
   "kela": {
-    "boss": "浪潮总管凯拉",
+    "boss": "海浪总管齐拉",
     "instance": "守护者林地",
-    "bounty": "凯拉"
+    "bounty": "齐拉"
   },
   "slothasor": {
     "boss": "斯洛萨索",
-    "instance": "救赎小径",
+    "instance": "救赎小道",
     "bounty": "斯洛萨索"
   },
   "matthias": {
     "boss": "马蒂亚斯·加布瑞尔",
-    "instance": "救赎小径",
+    "instance": "救赎小道",
     "bounty": "马蒂亚斯·加布瑞尔"
   },
   "xera": {
     "boss": "琦拉",
-    "instance": "忠诚要塞",
+    "instance": "信仰要塞",
     "bounty": "琦拉"
   },
   "samarog": {
@@ -118,11 +118,11 @@ globalThis.GW2_ENCOUNTERS_ZH = Object.freeze({
   "largos": {
     "boss": "尼凯尔 · 科纳特",
     "instance": "秘法对决",
-    "bounty": "拉戈斯双子"
+    "bounty": "孪生蝶翼人"
   },
   "decima": {
     "boss": "风暴歌手迪西玛",
-    "instance": "巴尔里奥山",
+    "instance": "巴里尔山",
     "bounty": "风暴歌手迪西玛"
   },
   "adina": {
@@ -131,13 +131,13 @@ globalThis.GW2_ENCOUNTERS_ZH = Object.freeze({
     "bounty": "基石守护者艾迪娜"
   },
   "olc": {
-    "boss": "守望骑士三巨头",
-    "instance": "雄狮庭院",
-    "bounty": "雄狮庭院"
+    "boss": "",
+    "instance": "旧雄狮广场",
+    "bounty": "旧雄狮广场"
   },
   "ura": {
     "boss": "蒸汽尖啸者厄拉",
-    "instance": "巴尔里奥山",
+    "instance": "巴里尔山",
     "bounty": "蒸汽尖啸者厄拉"
   },
   "kaineng": {
@@ -177,7 +177,7 @@ globalThis.GW2_ENCOUNTERS_ZH = Object.freeze({
   },
   "greer": {
     "boss": "瘟疫使者格里尔",
-    "instance": "巴尔里奥山",
+    "instance": "巴里尔山",
     "bounty": "瘟疫使者格里尔"
   }
 });

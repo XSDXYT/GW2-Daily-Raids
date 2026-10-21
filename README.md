@@ -66,7 +66,7 @@ node --test tests/test-rotation.cjs tests/test-homepage.cjs
 
 ## 当前界面
 
-首页采用简洁的深色列表，直接展示当天四组 Boss 与所属副本；点击“一键复制今日日常”可复制日期、全部 Boss 和所属副本，方便粘贴分享。浏览器不支持或禁止自动复制时，会显示可手动复制的完整文本。复制时重新确认 UTC 日期，避免跨日后复制昨日目标。
+首页恢复森林深色、铜金细节和山峦背景，以紧凑四组卡片突出当天 Boss 与所属副本；点击“一键复制今日日常”可复制日期、全部 Boss 和所属副本，方便粘贴分享。浏览器不支持或禁止自动复制时，会显示可手动复制的完整文本。复制时重新确认 UTC 日期，避免跨日后复制昨日目标。
 
 未来七天默认折叠，完整12天循环表仍可通过顶部导航查看。首页样式位于 `assets/css/today.css`，循环表样式位于 `assets/css/styles.css`。
 
@@ -78,6 +78,8 @@ node --test tests/test-rotation.cjs tests/test-homepage.cjs
 
 两页右上角的 `English / 中文` 按钮可切换全站文案、Boss、副本、悬赏、日期及复制内容。默认中文；语言选择保存到浏览器 localStorage，跨页及再次访问时保留，存储不可用时仍可在当前页切换。多标签页会同步选择。UTC轮换计算不受语言影响。
 
-名称优先采用用户提供的 `gw2_database.json`。原文件的空值及副本译名由本站补充，来源与差异见 `docs/translations.md`；可编辑 `assets/js/encounters-zh.js` 修订名称，界面文案位于 `assets/js/i18n.js`。新条目缺少中文时保留英文名称。
+名称优先采用用户提供的 `gw2_database.json`。此前补充译名已按可检索的 Wiki 双语资料修订，核验范围与限制见 `docs/translations.md`；可编辑 `assets/js/encounters-zh.js` 修订名称，界面文案位于 `assets/js/i18n.js`。新条目缺少中文时保留英文名称。
 
 已新增语言切换、36项译名、语言偏好跨页保留、多标签同步、存储被禁、双语复制及手动复制降级测试。真实浏览器布局和系统剪贴板尚未验证。
+
+本次名称修正覆盖信仰要塞、救赎小道、巴里尔山、宇宙观测台、菲勃神殿、桑莱废料场、旧雄狮广场、海浪总管齐拉等。英文 Wiki 与指定镜像的直连核验受限；未确认的 Watchknight Triumvirate 中文集合名回退英文，完整记录见 `docs/translations.md`。

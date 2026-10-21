@@ -1,56 +1,39 @@
-# 名称翻译来源
+# 名称与来源
 
-Boss 优先使用用户提供的 `gw2_database.json` v1.3.0（generated_at: 2026-08-11T20:17:55）。只提取本站所需数据，不发布整个数据库。
+本次修正优先依据可检索的 Wiki 中英对照及游戏文本对照表。具体对应关系、来源链接和修改字段保存在 [translation-sources.json](translation-sources.json)。
 
-匹配差异采用显式别名：Cairn → Cairn the Indomitable、Gorseval → Gorseval the Multifarious、Boneskinner → Boneskinner (legendary)、Fraenir/Whisper → 带 (NPC) 的条目、Ura → Ura、Varinia → 不带职衔的条目。NPC 后缀不在界面显示，Q1/Q2 编号保留。双 Boss 按各自条目组合。
+## 核验限制
 
-## 补充译名
+尝试访问 GW2 英文 Wiki 及用户提供的镜像 `https://wiki.wishingstar.top/wiki`，相关条目在当前工具中返回 403 或无法读取；镜像的 Spirit Shard 搜索索引可以读取，但不提供本站所需的中文名称。没有将未读到的镜像页面标记为已核验。
 
-原文件缺少或未填写的 Boss 译名：
+英文实体身份与副本归属以原始英文数据及英文 Wiki 条目为准；中文采用中文 Wiki 的双语条目、游戏更新文本及 Project:Trans 游戏文本对照表。社区 Wiki 的记录不等于本项目已独立验证全部官方客户端译文。
 
-- Legendary Icebrood Construct：传奇冰巢构造体
-- Voice of the Fallen：亡者之音
-- Echo of Scarlet Briar：猩红幻象
-- Kela, Seneschal of Waves：浪潮总管凯拉
-- Watchknight Triumvirate：守望骑士三巨头
-- Qadim：卡迪姆
+## 已修正的差异
 
-原文件未提供副本名称。`assets/js/encounters-zh.js` 的副本及悬赏名称为本站补充译名，未经逐项官方译名核对，可直接在该文件修订。未来条目缺少中文时回退到原始英文，避免空白。
+- `Shiverpeaks Pass` → **席瓦雪山小径**（[来源](https://gw2.huijiwiki.com/wiki/Project:Trans/Sector)）
+- `Voice of the Fallen and Claw of the Fallen` → **亡者之音和亡者之爪**（[来源](https://gw2.huijiwiki.com/wiki/大型地下城)）
+- `Stronghold of the Faithful` → **信仰要塞**（[来源](https://gw2.huijiwiki.com/wiki/Project:Trans/NamedText)）
+- `Salvation Pass` → **救赎小道**（[来源](https://gw2.huijiwiki.com/wiki/Project:Trans/NamedText)）
+- `Mount Balrior` → **巴里尔山**（[来源](https://gw2.huijiwiki.com/wiki/蒸汽尖啸者厄拉)）
+- `Cosmic Observatory` → **宇宙观测台**（[来源](https://gw2.huijiwiki.com/wiki/宇宙观测台)）
+- `Temple of Febe` → **菲勃神殿**（[来源](https://gw2.huijiwiki.com/wiki/缩写)）
+- `Xunlai Jade Junkyard` → **桑莱废料场**（[来源](https://gw2.huijiwiki.com/wiki/游戏更新/2022-5-13)）
+- `Old Lion's Court` → **旧雄狮广场**（[来源](https://gw2.huijiwiki.com/wiki/游戏更新/2022-11-11)）
+- `Kela, Seneschal of Waves` → **海浪总管齐拉**（[来源](https://gw2.huijiwiki.com/wiki/海浪总管齐拉)）
+- `Echo of Scarlet Briar` → **绯红刺荆的回响**（[来源](https://gw2.huijiwiki.com/wiki/游戏更新/2022-5-13)）
+- `Twin Largos` → **孪生蝶翼人**（[来源](https://gw2.huijiwiki.com/index.php?title=属性:Has_name_en&offset=41015&limit=100)）
+- `Spirit Vale` → **灵魂山谷**（[来源](https://gw2.huijiwiki.com/wiki/灵魂山谷)）
+- `Mythwright Gambit` → **秘法对决**（[来源](https://gw2.huijiwiki.com/wiki/秘法对决)）
+- `Legendary Icebrood Construct` → **传奇冰巢构造体**（[来源](https://gw2.huijiwiki.com/wiki/大型地下城)）
+- `Guardian's Glade` → **守护者林地**（[来源](https://gw2.huijiwiki.com/wiki/海浪总管齐拉)）
+- `Harvest Temple` → **丰收神殿**（[来源](https://gw2.huijiwiki.com/wiki/丰收神殿)）
+- `Cold War` → **冷战**（[来源](https://gw2.huijiwiki.com/wiki/Project:Trans/NamedText)）
 
-## 从原文件采用的 Boss 名称
+## 尚未确认与原有参考
 
-- Claw of the Fallen → 亡者之爪（ID 173825）
-- Fraenir of Jormag → 卓玛爪牙法兰涅尔（ID 173490）
-- Gorseval → 多变藤戈瑟瓦尔（ID 99202）
-- Cairn → 不屈的凯玲（ID 124325）
-- Mursaat Overseer → 末世魔监工（ID 124331）
-- Captain Mai Trin → 美琴船长（ID 47351）
-- Cardinal Sabir → 基石守护者萨比尔（ID 167615）
-- Whisper of Jormag → 卓玛低语（ID 175791）
-- Vale Guardian → 山谷守护者（ID 98924）
-- Dagda → 德格达（ID 246485）
-- Varinia Stormsounder (Minister of Morale) → 风暴之声瓦里尼亚（ID 170972）
-- Boneskinner → 骸骨剥皮怪（ID 173743）
-- Sabetha the Saboteur → 破坏者萨蓓莎（ID 99205）
-- Ankka → 安卡（ID 192466）
-- Cerus → 塞鲁斯（ID 245863）
-- Keep Construct → 要塞构造体（ID 111263）
-- Slothasor → 斯洛萨索（ID 106382）
-- Matthias Gabrel → 马蒂亚斯·加布瑞尔（ID 107148）
-- Xera → 琦拉（ID 111651）
-- Samarog → 萨玛洛格（ID 124333）
-- Conjured Amalgamate → 咒术融合体（ID 157377）
-- Nikare → 尼凯尔（ID 158902）
-- Kenut → 科纳特（ID 158927）
-- Decima, the Stormsinger → 风暴歌手迪西玛（ID 261185）
-- Cardinal Adina → 基石守护者艾迪娜（ID 167614）
-- Ura, the Steamshrieker → 蒸汽尖啸者厄拉（ID 262309）
-- Ura → 蒸汽尖啸者厄拉（ID 262309）
-- Minister Li → 李部长（ID 195978）
-- Deimos → 戴莫斯（ID 124423）
-- Qadim the Peerless (Q2) → 无可匹敌的卡迪姆（ID 167675）
-- Qadim the Peerless → 无可匹敌的卡迪姆（ID 167675）
-- Soulless Horror → 无魂惧魔（ID 143798）
-- The Dragonvoid → 巨龙虚空（ID 200589）
-- Dhuum → 德姆（ID 143870）
-- Greer, the Blightbringer → 瘟疫使者格里尔（ID 260424）
+- `Watchknight Triumvirate` 未找到足够可靠的中文集合名称对应，撤回“守望骑士三巨头”猜译，中文模式暂时保留英文。其副本已修正为“旧雄狮广场”。
+- 其余未出现冲突的 Boss 名称继续采用用户提供的 `gw2_database.json` v1.3.0，不能表述为本次已逐项从英文 Wiki 取得官方中文名。
+- NPC 后缀不显示，Q1/Q2 编号保留；双 Boss 使用各自名称组合。
+- 新条目中文为空时回退英文，避免空白或未经核实的猜译。
+
+显示、未来七天、循环表和一键复制均使用 `assets/js/encounters-zh.js` 这一个名称来源。
