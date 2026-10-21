@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 640" fill="none">
+<defs><linearGradient id="sky" x2="0" y2="1"><stop stop-color="#252d31"/><stop offset="1" stop-color="#74766b"/></linearGradient><linearGradient id="fade" x2="0" y2="1"><stop stop-color="#12191a" stop-opacity="0"/><stop offset="1" stop-color="#12191a"/></linearGradient><radialGradient id="sun"><stop stop-color="#d7bd8a" stop-opacity=".38"/><stop offset="1" stop-color="#d7bd8a" stop-opacity="0"/></radialGradient><filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".7" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="linear" slope=".08"/></feComponentTransfer><feBlend in="SourceGraphic" mode="soft-light"/></filter></defs>
+<g filter="url(#grain)"><path fill="url(#sky)" d="M0 0h1440v640H0z"/><ellipse cx="1030" cy="125" rx="330" ry="280" fill="url(#sun)"/><circle cx="1040" cy="118" r="58" stroke="#cbb88e" stroke-opacity=".25"/><circle cx="1040" cy="118" r="48" fill="#cbb88e" fill-opacity=".1"/>
+<path d="m0 340 100-72 90 22 160-161 100 112 70-35 110 99 130-76 60 25 120-154 125 123 65-16 115 112 95-12 100 64v269H0Z" fill="#59615a"/>
+<path d="m350 129-62 120 61-34 38 14-37-100Zm590-29-75 134 51-43 25 18 23-34Z" fill="#abb09c" fill-opacity=".3"/>
+<path d="m0 435 90-75 70 27 120-134 100 108 60-22 111 92 59-26 110 68 150-123 90 30 120-160 70 98 54-23 103 111 90-21 143 93v162H0Z" fill="#394a43"/>
+<path d="m1080 220-52 103 36-22 16 22 17-30-17-73Z" fill="#8e9985" fill-opacity=".25"/>
+<path d="m0 482 150-35 100 34 120-50 80 10 90 65 90-18 80 33 100-13 150-50 150 33 130-91 200 68v172H0Z" fill="#263933"/>
+<path d="m1130 402 24-93 8-5 7-69 6 70 9 5 15 95m-62-8h73l-5 41h-68z" fill="#22352e"/><path d="m1154 308 24-22 7 24" fill="#22352e"/>
+<path d="m0 565 110-54 140 49 170-15 130 50 140-18 210 42 170-40 160 23 210-44v82H0Z" fill="#15251f"/>
+<g fill="#172b24"><path d="m930 542 24-70-13 5 19-57 20 57-13-5 25 70h-28v40h-8v-40Zm345-48 34-99-16 7 26-77 26 77-17-7 34 99h-36v70h-11v-70Z"/></g><path fill="url(#fade)" d="M0 0h1440v640H0z"/></g></svg>
