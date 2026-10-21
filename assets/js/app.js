@@ -15,60 +15,16 @@
     return el;
   }
 
-  function textRow(label, value, className) {
-    const row = element('div', className || 'info-line');
-    row.append(element('span', 'info-label', label), element('span', 'info-value', value));
-    return row;
-  }
-
-  function wingTag(item) {
-    return item.wing == null ? '独立遭遇战' : `W${item.wing} · 团队副本`;
-  }
-
-  const SIGILS = [
-    '<path d="m32 6 6 14 14 6-14 6-6 17-6-17-14-6 14-6Z"/><path d="m13 48 19 10 19-10M10 14l7 3M54 14l-7 3"/>',
-    '<path d="m32 7 17 10-4 26-13 14-13-14-4-26Z"/><path d="m23 24 9-6 9 6-3 15-6 7-6-7Zm9-6V7m-9 17-8-7m26 7 8-7"/>',
-    '<path d="m32 6 5 14 15-7-7 17 12 7-18 3-7 18-7-18-18-3 12-7-7-17 15 7Z"/><path d="m32 20 7 12-7 12-7-12Z"/>',
-    '<path d="m18 9 7 15-7 12 14 21 14-21-7-12 7-15-14 9Z"/><path d="m18 36 14-6 14 6m-14-6V18m-9 21 9 9 9-9"/>'
-  ];
-
-  function makeBossVisual(item) {
-    const visual = element('div', 'boss-visual');
-    visual.setAttribute('aria-hidden', 'true');
-    // Decorative original emblems; encounter data is rendered as text below.
-    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    svg.setAttribute('viewBox', '0 0 64 64');
-    svg.setAttribute('fill', 'none');
-    svg.setAttribute('stroke', 'currentColor');
-    svg.setAttribute('stroke-width', '1.4');
-    svg.setAttribute('class', 'boss-sigil');
-    svg.innerHTML = SIGILS[item.group - 1];
-    visual.append(svg, element('span', 'visual-number', `0${item.group} / IV`), element('span', 'visual-caption', 'DAILY BOUNTY'));
-    return visual;
-  }
-
   function makeBossCard(item) {
-    const card = element('article', `boss-card group-${item.group}`);
-    const top = element('div', 'boss-top');
-    top.append(element('span', 'group-tag', `GROUP 0${item.group}`), element('span', 'type-tag', wingTag(item)));
-
-    const content = element('div', 'boss-content');
-    content.append(element('div', 'card-field-label', '实际 BOSS'));
-    content.append(element('h3', 'boss-name', item.boss));
-    content.append(element('div', 'boss-instance-label', '所属副本'));
-    content.append(element('p', 'boss-instance', item.instance));
-
-    const bottom = element('div', 'boss-bottom');
-    bottom.append(element('span', 'bounty-flag', '悬赏任务'), element('span', 'bounty-name', item.bounty));
-
-    const guide = element('a', 'boss-link', '↗');
-    guide.href = `https://wiki.guildwars2.com/wiki/${encodeURIComponent(item.bounty.replace(/ /g, '_'))}`;
-    guide.target = '_blank';
-    guide.rel = 'noopener noreferrer';
-    guide.setAttribute('aria-label', `在 Guild Wars 2 Wiki 查看 ${item.bounty}（新窗口）`);
-    bottom.append(guide);
-    card.append(makeBossVisual(item), top, content, bottom);
-    return card;
+    const row = element('article', 'boss-row');
+    row.append(element('span', 'group-number', `0${item.group}`));
+    row.append(element('h3', 'boss-name', item.boss));
+    const instance = element('p', 'boss-instance');
+    instance.append(element('span', 'instance-label', '副本：'));
+    if (item.wing != null) instance.append(element('span', 'instance-wing', `W${item.wing}`));
+    instance.append(document.createTextNode(item.instance));
+    row.append(instance);
+    return row;
   }
 
   function makeForecastItem(item) {
@@ -98,6 +54,10 @@
     const grid = document.querySelector('#today-grid');
     grid.replaceChildren(...R.bountiesForDate(dateString).map(makeBossCard));
     renderForecast(dateString);
+    const copyButton = document.querySelector('#copy-today');
+    if (copyButton) copyButton.disabled = false;
+    document.querySelector('#copy-fallback').hidden = true;
+    document.querySelector('#copy-status').textContent = '';
   }
 
   function renderForecast(today) {
@@ -218,6 +178,62 @@
       document.querySelector('#forecast-content').hidden = !forecastExpanded;
       forecastToggle.setAttribute('aria-expanded', String(forecastExpanded));
       document.querySelector('#forecast-toggle-text').textContent = forecastExpanded ? '收起未来7天' : '展开未来7天';
+    });
+  }
+
+  function dailyCopyText(dateString) {
+    const lines = [`激战2今日日常（${dateString} UTC）`];
+    R.bountiesForDate(dateString).forEach((item, index) => {
+      lines.push(`${index + 1}. Boss：${item.boss}`,
+        `   副本：${item.wing == null ? '' : `W${item.wing} · `}${item.instance}`);
+    });
+    return lines.join('\n');
+  }
+
+  function legacyCopy(text) {
+    const field = document.querySelector('#copy-text');
+    const fallback = document.querySelector('#copy-fallback');
+    fallback.hidden = false;
+    field.value = text;
+    field.focus({ preventScroll: true });
+    field.select();
+    field.setSelectionRange(0, text.length);
+    let copied = false;
+    try { copied = document.execCommand('copy'); } catch (_) { /* 手动复制降级。 */ }
+    if (copied) fallback.hidden = true;
+    return copied;
+  }
+
+  const copyToday = document.querySelector('#copy-today');
+  if (copyToday) {
+    copyToday.addEventListener('click', async () => {
+      // 使用点击瞬间的 UTC 日期，避免跨日后复制到昨日目标。
+      refresh();
+      const text = dailyCopyText(renderedUtcDate);
+      const status = document.querySelector('#copy-status');
+      copyToday.disabled = true;
+      copyToday.textContent = '正在复制…';
+      status.textContent = '';
+      let copied = false;
+      try {
+        if (navigator.clipboard?.writeText) {
+          await navigator.clipboard.writeText(text);
+          copied = true;
+        } else {
+          copied = legacyCopy(text);
+        }
+      } catch (_) {
+        copied = legacyCopy(text);
+      } finally {
+        copyToday.disabled = false;
+        copyToday.textContent = '一键复制今日日常';
+      }
+      status.dataset.error = String(!copied);
+      status.textContent = copied ? '已复制 4 个 Boss 和所属副本，可直接粘贴分享。' : '复制未完成，请使用下方文本手动复制。';
+      if (copied) {
+        document.querySelector('#copy-fallback').hidden = true;
+        copyToday.focus({ preventScroll: true });
+      }
     });
   }
 

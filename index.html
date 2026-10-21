@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#101715">
-  <meta name="description" content="激战2每日团队悬赏：查看今天的4个Raid Boss、所属副本及未来7天安排。">
+  <meta name="theme-color" content="#15181c">
+  <meta name="description" content="快速查看激战2今日四个日常 Boss 及所属副本，一键复制分享，支持未来七天与完整12天轮换查询。">
   <title>今日日常 · GW2 Raid Bounties</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/today.css">
   <script defer src="assets/js/data.js"></script>
   <script defer src="assets/js/rotation.js"></script>
   <script defer src="assets/js/app.js"></script>
@@ -16,67 +16,38 @@
   <a class="skip-link" href="#main-content">跳转到主要内容</a>
   <div class="site-shell">
     <header class="site-header">
-      <a class="brand" href="index.html" aria-label="返回GW2日常十人本首页">
-        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none"><path d="m20 3 15 9v16l-15 9L5 28V12Z" stroke="currentColor"/><path d="m12 27 5-14 3 6 3-6 5 14-8-5Z" fill="currentColor"/><path d="m20 6 2 4-2 3-2-3Z" fill="currentColor"/></svg></span>
-        <span class="brand-copy"><strong>GW2 <span>RAID</span></strong><small>泰瑞亚 · 每日悬赏指南</small></span>
-      </a>
+      <a class="brand" href="index.html">GW2 <span>日常查询</span></a>
       <nav class="nav" aria-label="主导航">
-        <a href="index.html" class="nav-link active" aria-current="page"><span aria-hidden="true">◈</span> 今日日常</a>
-        <a href="rotation.html" class="nav-link"><span aria-hidden="true">▦</span> 12天循环表</a>
+        <a href="index.html" class="nav-link active" aria-current="page">今日日常</a>
+        <a href="rotation.html" class="nav-link">12天循环表</a>
       </nav>
-      <span class="header-status"><span class="tiny-led" aria-hidden="true"></span> 每日 08:00 刷新 <span>UTC+8</span></span>
     </header>
-
     <main id="main-content">
-      <section class="hero" aria-labelledby="hero-title">
-        <div class="hero-main">
-          <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> DAILY RAID BOUNTIES <span class="eyebrow-separator">/</span> 每日团队悬赏</p>
-          <h1 id="hero-title">新的征程，<br>今天挑战谁<span class="hero-dot">？</span></h1>
-          <p class="hero-description">集结你的队伍，开启今日的泰瑞亚冒险。<br>四个悬赏目标，下一场挑战已为你揭晓。</p>
-          <div class="hero-date-line">
-            <span class="calendar-icon" aria-hidden="true">▦</span>
-            <span id="today-date">读取当前日期…</span>
-            <span id="cycle-label" class="cycle-label">轮换计算中</span>
-          </div>
+      <section class="today-section" aria-labelledby="today-heading">
+        <div class="today-heading">
+          <div><h1 id="today-heading">今日日常</h1><p class="date-line"><span id="today-date">读取当前日期…</span><span id="cycle-label">轮换计算中</span></p></div>
+          <button id="copy-today" class="primary-button" type="button" disabled>一键复制今日日常</button>
         </div>
-        <div class="reset-panel">
-          <span class="meta-label"><span class="tiny-led" aria-hidden="true"></span> NEXT RESET <span>下次刷新</span></span>
-          <div id="countdown" class="countdown" role="timer" aria-label="距离下一次刷新">--:--:--</div>
-          <div class="reset-rule"><span class="tiny-led" aria-hidden="true"></span> UTC 00:00 <span class="reset-divider">/</span> 北京时间 08:00</div>
+        <p class="reset-line">每日北京时间 08:00 刷新 <span aria-hidden="true">·</span> 距离刷新 <span id="countdown" role="timer" aria-label="距离下一次刷新">--:--:--</span></p>
+        <p id="copy-status" class="copy-status" role="status" aria-live="polite"></p>
+        <div id="copy-fallback" class="copy-fallback" hidden>
+          <label for="copy-text">自动复制不可用，请长按或选中下方文字复制。</label>
+          <textarea id="copy-text" rows="10" readonly spellcheck="false"></textarea>
         </div>
+        <div class="list-heading" aria-hidden="true"><span>组别</span><span>Boss</span><span>所属副本</span></div>
+        <div id="today-grid" class="boss-list" aria-live="polite"></div>
+        <noscript><p class="noscript">请启用 JavaScript 查看自动计算的日常数据。</p></noscript>
       </section>
-
-      <div class="adventure-strip"><span><i aria-hidden="true">✧</i> 今日冒险简报</span><span><strong>04</strong> 每日目标</span><span><strong>12</strong> 天轮换周期</span><span class="strip-note">为下一场战斗，做好准备 <span aria-hidden="true">↗</span></span></div>
-
-      <section class="section" aria-labelledby="today-heading">
-        <div class="section-heading">
-          <div><p class="section-kicker">TODAY'S TARGETS</p><h2 id="today-heading">今日悬赏目标</h2></div>
-          <span class="counter-pill"><span class="tiny-led" aria-hidden="true"></span> 今日已更新 <span> / 4 个目标</span></span>
-        </div>
-        <div id="today-grid" class="boss-grid" aria-live="polite"></div>
-        <noscript><p class="noscript">请启用浏览器 JavaScript 以查看自动计算的日常数据。</p></noscript>
-      </section>
-
-      <section class="section forecast-section" aria-labelledby="forecast-heading">
+      <section class="forecast-section" aria-labelledby="forecast-heading">
         <div class="forecast-top">
-          <div><p class="section-kicker">PLAN YOUR NEXT ADVENTURE</p><h2 id="forecast-heading">未来七天</h2><p class="section-hint">从明天开始，提前规划你的副本日程。</p></div>
-          <button id="forecast-toggle" type="button" class="action-button" aria-controls="forecast-content" aria-expanded="false">
-            <span id="forecast-toggle-text">展开未来7天</span><span class="button-arrow" aria-hidden="true">⌄</span>
-          </button>
+          <h2 id="forecast-heading">未来七天</h2>
+          <button id="forecast-toggle" type="button" class="action-button" aria-controls="forecast-content" aria-expanded="false"><span id="forecast-toggle-text">展开未来7天</span><span class="button-arrow" aria-hidden="true">⌄</span></button>
         </div>
-        <div id="forecast-content" class="forecast-content" hidden></div>
+        <div id="forecast-content" hidden></div>
       </section>
-
-      <section class="bottom-link" aria-label="查看完整轮换">
-        <div><p class="section-kicker">EXPLORE THE ROTATION</p><h2>想查看完整的轮换规律？</h2><p>12天一个完整周期，四组每日任务的顺序全部整理好了。</p></div>
-        <a class="text-action" href="rotation.html">查看12天循环表 <span aria-hidden="true">↗</span></a>
-      </section>
+      <p class="rotation-link"><a href="rotation.html">查看完整12天循环表 →</a></p>
     </main>
-
-    <footer class="site-footer">
-      <div><strong>GW2 RAID</strong> <span class="footer-divider">·</span> 非官方玩家制作查询工具</div>
-      <div>数据参考 <a href="https://wiki.guildwars2.com/wiki/Daily_Raid_Bounties" target="_blank" rel="noopener noreferrer">Guild Wars 2 Wiki ↗</a><span class="footer-divider">·</span>核对日期 2026-10-21</div>
-    </footer>
+    <footer class="site-footer"><span>非官方玩家查询工具 · 日期以 UTC 为准</span><a href="https://wiki.guildwars2.com/wiki/Daily_Raid_Bounties" target="_blank" rel="noopener noreferrer">数据来源：GW2 Wiki ↗</a></footer>
   </div>
 </body>
 </html>
