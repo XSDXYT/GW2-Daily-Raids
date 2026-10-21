@@ -4,50 +4,53 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#15181c">
-  <meta name="description" content="快速查看激战2今日四个日常 Boss 及所属副本，一键复制分享，支持未来七天与完整12天轮换查询。">
-  <title>今日日常 · GW2 Raid Bounties</title>
+  <meta name="description" content="快速查看激战2今日四个日常 Boss 及所属副本，一键复制分享，支持未来七天与完整12天轮换查询。" data-i18n-content="descriptionToday">
+  <title data-i18n="todayTitle">今日日常 · GW2 Raid Bounties</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/css/today.css">
+  <link rel="stylesheet" href="assets/css/today.css?v=2">
   <script defer src="assets/js/data.js"></script>
   <script defer src="assets/js/rotation.js"></script>
-  <script defer src="assets/js/app.js"></script>
+  <script defer src="assets/js/encounters-zh.js?v=2"></script>
+  <script defer src="assets/js/i18n.js?v=2"></script>
+  <script defer src="assets/js/app.js?v=2"></script>
 </head>
 <body data-page="today">
-  <a class="skip-link" href="#main-content">跳转到主要内容</a>
+  <a class="skip-link" href="#main-content"><span data-i18n="skip">跳转到主要内容</span></a>
   <div class="site-shell">
     <header class="site-header">
-      <a class="brand" href="index.html">GW2 <span>日常查询</span></a>
-      <nav class="nav" aria-label="主导航">
-        <a href="index.html" class="nav-link active" aria-current="page">今日日常</a>
-        <a href="rotation.html" class="nav-link">12天循环表</a>
+      <a class="brand" href="index.html">GW2 <span><span data-i18n="brand">日常查询</span></span></a>
+      <nav class="nav" aria-label="主导航" data-i18n-aria-label="nav">
+        <a href="index.html" class="nav-link active" aria-current="page"><span data-i18n="today">今日日常</span></a>
+        <a href="rotation.html" class="nav-link"><span data-i18n="rotation">12天循环表</span></a>
       </nav>
+      <button id="language-toggle" class="language-toggle" type="button" aria-label="Switch to English" data-i18n-aria-label="switchLanguage">English</button>
     </header>
     <main id="main-content">
       <section class="today-section" aria-labelledby="today-heading">
         <div class="today-heading">
-          <div><h1 id="today-heading">今日日常</h1><p class="date-line"><span id="today-date">读取当前日期…</span><span id="cycle-label">轮换计算中</span></p></div>
-          <button id="copy-today" class="primary-button" type="button" disabled>一键复制今日日常</button>
+          <div><h1 id="today-heading"><span data-i18n="today">今日日常</span></h1><p class="date-line"><span id="today-date"><span data-i18n="loadingDate">读取当前日期…</span></span><span id="cycle-label"><span data-i18n="loadingCycle">轮换计算中</span></span></p></div>
+          <button id="copy-today" class="primary-button" type="button" disabled><span data-i18n="copy">一键复制今日日常</span></button>
         </div>
-        <p class="reset-line">每日北京时间 08:00 刷新 <span aria-hidden="true">·</span> 距离刷新 <span id="countdown" role="timer" aria-label="距离下一次刷新">--:--:--</span></p>
+        <p class="reset-line"><span data-i18n="resetRule">每日北京时间 08:00 刷新</span> <span aria-hidden="true">·</span> <span><span data-i18n="resetRemaining">距离刷新</span></span> <span id="countdown" role="timer" aria-label="距离下一次刷新" data-i18n-aria-label="resetTimer">--:--:--</span></p>
         <p id="copy-status" class="copy-status" role="status" aria-live="polite"></p>
         <div id="copy-fallback" class="copy-fallback" hidden>
-          <label for="copy-text">自动复制不可用，请长按或选中下方文字复制。</label>
+          <label for="copy-text"><span data-i18n="manualHelp">自动复制不可用，请长按或选中下方文字复制。</span></label>
           <textarea id="copy-text" rows="10" readonly spellcheck="false"></textarea>
         </div>
-        <div class="list-heading" aria-hidden="true"><span>组别</span><span>Boss</span><span>所属副本</span></div>
+        <div class="list-heading" aria-hidden="true"><span><span data-i18n="groupColumn">组别</span></span><span>Boss</span><span><span data-i18n="instanceColumn">所属副本</span></span></div>
         <div id="today-grid" class="boss-list" aria-live="polite"></div>
-        <noscript><p class="noscript">请启用 JavaScript 查看自动计算的日常数据。</p></noscript>
+        <noscript><p class="noscript"><span data-i18n="noscript">请启用 JavaScript 查看自动计算的日常数据。</span></p></noscript>
       </section>
       <section class="forecast-section" aria-labelledby="forecast-heading">
         <div class="forecast-top">
-          <h2 id="forecast-heading">未来七天</h2>
-          <button id="forecast-toggle" type="button" class="action-button" aria-controls="forecast-content" aria-expanded="false"><span id="forecast-toggle-text">展开未来7天</span><span class="button-arrow" aria-hidden="true">⌄</span></button>
+          <h2 id="forecast-heading"><span data-i18n="forecast">未来七天</span></h2>
+          <button id="forecast-toggle" type="button" class="action-button" aria-controls="forecast-content" aria-expanded="false"><span id="forecast-toggle-text"><span data-i18n="expand">展开未来7天</span></span><span class="button-arrow" aria-hidden="true">⌄</span></button>
         </div>
         <div id="forecast-content" hidden></div>
       </section>
-      <p class="rotation-link"><a href="rotation.html">查看完整12天循环表 →</a></p>
+      <p class="rotation-link"><a href="rotation.html"><span data-i18n="fullRotation">查看完整12天循环表 →</span></a></p>
     </main>
-    <footer class="site-footer"><span>非官方玩家查询工具 · 日期以 UTC 为准</span><a href="https://wiki.guildwars2.com/wiki/Daily_Raid_Bounties" target="_blank" rel="noopener noreferrer">数据来源：GW2 Wiki ↗</a></footer>
+    <footer class="site-footer"><span><span data-i18n="footerToday">非官方玩家查询工具 · 日期以 UTC 为准</span></span><a href="https://wiki.guildwars2.com/wiki/Daily_Raid_Bounties" target="_blank" rel="noopener noreferrer"><span data-i18n="wikiSource">数据来源：GW2 Wiki ↗</span></a></footer>
   </div>
 </body>
 </html>

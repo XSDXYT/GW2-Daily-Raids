@@ -4,9 +4,16 @@
 
   const R = globalThis.GW2_ROTATION;
   if (!R) throw new Error('请先加载 rotation.js');
+  const I = globalThis.GW2_I18N;
+  if (!I) throw new Error('Please load i18n.js before app.js');
+  const t = I.t;
+  const name = I.encounter;
   const page = document.body.dataset.page;
   let renderedUtcDate = '';
   let forecastExpanded = false;
+  let renderedLanguage = '';
+  let copyState = '';
+  let copyBusy = false;
 
   function element(tag, className, text) {
     const el = document.createElement(tag);
@@ -18,11 +25,11 @@
   function makeBossCard(item) {
     const row = element('article', 'boss-row');
     row.append(element('span', 'group-number', `0${item.group}`));
-    row.append(element('h3', 'boss-name', item.boss));
+    row.append(element('h3', 'boss-name', name(item, 'boss')));
     const instance = element('p', 'boss-instance');
-    instance.append(element('span', 'instance-label', '副本：'));
+    instance.append(element('span', 'instance-label', t('instancePrefix')));
     if (item.wing != null) instance.append(element('span', 'instance-wing', `W${item.wing}`));
-    instance.append(document.createTextNode(item.instance));
+    instance.append(document.createTextNode(name(item, 'instance')));
     row.append(instance);
     return row;
   }
@@ -31,7 +38,7 @@
     const row = element('div', 'forecast-item');
     row.append(element('span', 'forecast-index', `0${item.group}`));
     const body = element('div', 'forecast-item-main');
-    body.append(element('div', 'forecast-boss', item.boss), element('div', 'forecast-instance', `${item.wing ? `W${item.wing} · ` : ''}${item.instance}`));
+    body.append(element('div', 'forecast-boss', name(item, 'boss')), element('div', 'forecast-instance', `${item.wing ? `W${item.wing} · ` : ''}${name(item, 'instance')}`));
     row.append(body);
     return row;
   }
@@ -40,8 +47,8 @@
     const card = element('article', 'forecast-day');
     const header = element('header', 'forecast-day-header');
     const left = element('div');
-    left.append(element('span', 'forecast-day-overline', `未来第 ${offset} 天`), element('h3', 'forecast-day-title', R.dateLabel(dateString)));
-    header.append(left, element('span', 'forecast-day-index', `循环 ${String(R.cycleIndex(dateString) + 1).padStart(2, '0')}/12`));
+    left.append(element('span', 'forecast-day-overline', t('futureDay', { n: offset })), element('h3', 'forecast-day-title', I.dateLabel(dateString)));
+    header.append(left, element('span', 'forecast-day-index', t('cycleShort', { n: String(R.cycleIndex(dateString) + 1).padStart(2, '0') })));
     const list = element('div', 'forecast-list');
     R.bountiesForDate(dateString).forEach((item) => list.append(makeForecastItem(item)));
     card.append(header, list);
@@ -49,15 +56,12 @@
   }
 
   function renderToday(dateString) {
-    document.querySelector('#today-date').textContent = `${R.dateLabel(dateString, true)} · UTC`;
-    document.querySelector('#cycle-label').textContent = `轮换第 ${R.cycleIndex(dateString) + 1} / 12 天`;
+    document.querySelector('#today-date').textContent = `${I.dateLabel(dateString, true)} · UTC`;
+    document.querySelector('#cycle-label').textContent = t('cycleLabel', { n: R.cycleIndex(dateString) + 1 });
     const grid = document.querySelector('#today-grid');
     grid.replaceChildren(...R.bountiesForDate(dateString).map(makeBossCard));
     renderForecast(dateString);
-    const copyButton = document.querySelector('#copy-today');
-    if (copyButton) copyButton.disabled = false;
-    document.querySelector('#copy-fallback').hidden = true;
-    document.querySelector('#copy-status').textContent = '';
+    updateCopyUi();
   }
 
   function renderForecast(today) {
@@ -71,20 +75,20 @@
 
   function makeRotationCell(item) {
     const cell = element('td', `rotation-cell group-${item.group}`);
-    cell.append(element('strong', 'rotation-boss', item.boss));
+    cell.append(element('strong', 'rotation-boss', name(item, 'boss')));
     const details = element('div', 'rotation-instance');
-    details.append(element('span', 'mini-wing', item.wing == null ? '独立' : `W${item.wing}`), document.createTextNode(item.instance));
+    details.append(element('span', 'mini-wing', item.wing == null ? t('independent') : `W${item.wing}`), document.createTextNode(name(item, 'instance')));
     cell.append(details);
-    if (item.bounty !== item.boss) cell.append(element('div', 'rotation-bounty', `悬赏：${item.bounty}`));
+    if (item.bounty !== item.boss) cell.append(element('div', 'rotation-bounty', t('bountyLabel', { name: name(item, 'bounty') })));
     return cell;
   }
 
   function makeRotationMobileRow(item) {
     const row = element('div', `mobile-rotation-row group-${item.group}`);
-    row.append(element('span', 'mobile-group', `第 ${item.group} 组`));
+    row.append(element('span', 'mobile-group', t('groupLabel', { n: item.group })));
     const main = element('div', 'mobile-rotation-row-main');
-    main.append(element('strong', '', item.boss), element('span', '', `${item.wing ? `W${item.wing} · ` : ''}${item.instance}`));
-    if (item.bounty !== item.boss) main.append(element('small', '', `悬赏：${item.bounty}`));
+    main.append(element('strong', '', name(item, 'boss')), element('span', '', `${item.wing ? `W${item.wing} · ` : ''}${name(item, 'instance')}`));
+    if (item.bounty !== item.boss) main.append(element('small', '', t('bountyLabel', { name: name(item, 'bounty') })));
     row.append(main);
     return row;
   }
@@ -92,8 +96,8 @@
   function renderRotation(dateString) {
     const start = R.currentCycleStart(dateString);
     const last = R.dayOffset(start, 11);
-    document.querySelector('#period-label').textContent = `本轮周期：${start} — ${last} (UTC)`;
-    document.querySelector('#rotation-today').textContent = `今天：第 ${R.cycleIndex(dateString) + 1} 天`;
+    document.querySelector('#period-label').textContent = t('periodLabel', { start, end: last });
+    document.querySelector('#rotation-today').textContent = t('rotationToday', { n: R.cycleIndex(dateString) + 1 });
     const tbody = document.querySelector('#rotation-tbody');
     const mobile = document.querySelector('#mobile-rotation');
     const track = document.querySelector('#cycle-track');
@@ -110,15 +114,15 @@
       if (isToday) tr.className = 'today-row';
       const step = element('button', 'cycle-step');
       step.type = 'button';
-      step.append(element('span', '', 'DAY'), element('strong', '', String(i + 1).padStart(2, '0')), element('span', '', isToday ? '今天' : date.slice(5)));
+      step.append(element('span', '', I.language === 'zh' ? '天' : 'DAY'), element('strong', '', String(i + 1).padStart(2, '0')), element('span', '', isToday ? t('currentDay') : date.slice(5)));
       if (isToday) step.setAttribute('aria-current', 'date');
-      step.setAttribute('aria-label', `查看第 ${i + 1} 天，${date}${isToday ? '，今天' : ''}`);
+      step.setAttribute('aria-label', t('viewDay', { n: i + 1, date, today: isToday ? t('todaySuffix') : '' }));
       step.addEventListener('click', () => scrollToDay(i));
       steps.append(step);
       const th = element('th', 'day-heading');
       th.scope = 'row';
-      th.append(element('span', 'day-number', `DAY ${String(i + 1).padStart(2, '0')}`), element('strong', 'day-date', date.slice(5)), element('span', 'day-week', R.dateLabel(date)));
-      if (isToday) th.append(element('span', 'today-chip', '今天'));
+      th.append(element('span', 'day-number', t('day', { n: String(i + 1).padStart(2, '0') })), element('strong', 'day-date', date.slice(5)), element('span', 'day-week', I.dateLabel(date)));
+      if (isToday) th.append(element('span', 'today-chip', t('currentDay')));
       tr.append(th);
       items.forEach((item) => tr.append(makeRotationCell(item)));
       rows.append(tr);
@@ -127,9 +131,9 @@
       card.id = `mobile-day-${i}`;
       const heading = element('div', 'mobile-day-heading');
       const title = element('div');
-      title.append(element('span', 'mobile-day-count', `DAY ${String(i + 1).padStart(2, '0')}`), element('strong', '', R.dateLabel(date)));
+      title.append(element('span', 'mobile-day-count', t('day', { n: String(i + 1).padStart(2, '0') })), element('strong', '', I.dateLabel(date)));
       heading.append(title);
-      if (isToday) heading.append(element('span', 'today-chip', '今天'));
+      if (isToday) heading.append(element('span', 'today-chip', t('currentDay')));
       card.append(heading);
       items.forEach((item) => card.append(makeRotationMobileRow(item)));
       cards.append(card);
@@ -163,10 +167,12 @@
   function refresh() {
     const now = new Date();
     const utcDate = R.utcToday(now);
-    if (utcDate !== renderedUtcDate) {
+    if (utcDate !== renderedUtcDate || I.language !== renderedLanguage) {
+      if (utcDate !== renderedUtcDate) copyState = '';
       if (page === 'today') renderToday(utcDate);
       if (page === 'rotation') renderRotation(utcDate);
       renderedUtcDate = utcDate;
+      renderedLanguage = I.language;
     }
     updateCountdown(now);
   }
@@ -177,17 +183,30 @@
       forecastExpanded = !forecastExpanded;
       document.querySelector('#forecast-content').hidden = !forecastExpanded;
       forecastToggle.setAttribute('aria-expanded', String(forecastExpanded));
-      document.querySelector('#forecast-toggle-text').textContent = forecastExpanded ? '收起未来7天' : '展开未来7天';
+      document.querySelector('#forecast-toggle-text').textContent = t(forecastExpanded ? 'collapse' : 'expand');
     });
   }
 
   function dailyCopyText(dateString) {
-    const lines = [`激战2今日日常（${dateString} UTC）`];
+    const lines = [t('copyHeading', { date: dateString })];
     R.bountiesForDate(dateString).forEach((item, index) => {
-      lines.push(`${index + 1}. Boss：${item.boss}`,
-        `   副本：${item.wing == null ? '' : `W${item.wing} · `}${item.instance}`);
+      lines.push(t('copyBoss', { n: index + 1, name: name(item, 'boss') }),
+        t('copyInstance', { name: `${item.wing == null ? '' : `W${item.wing} · `}${name(item, 'instance')}` }));
     });
     return lines.join('\n');
+  }
+
+  function updateCopyUi() {
+    const button = document.querySelector('#copy-today');
+    if (!button) return;
+    button.disabled = copyBusy;
+    button.textContent = t(copyBusy ? 'copying' : 'copy');
+    const status = document.querySelector('#copy-status');
+    status.dataset.error = String(copyState === 'manual');
+    status.textContent = copyState === 'success' ? t('copySuccess') : copyState === 'manual' ? t('copyFailed') : '';
+    const fallback = document.querySelector('#copy-fallback');
+    fallback.hidden = copyState !== 'manual';
+    if (copyState === 'manual') document.querySelector('#copy-text').value = dailyCopyText(R.utcToday());
   }
 
   function legacyCopy(text) {
@@ -210,10 +229,10 @@
       // 使用点击瞬间的 UTC 日期，避免跨日后复制到昨日目标。
       refresh();
       const text = dailyCopyText(renderedUtcDate);
-      const status = document.querySelector('#copy-status');
-      copyToday.disabled = true;
-      copyToday.textContent = '正在复制…';
-      status.textContent = '';
+      copyBusy = true;
+      copyState = '';
+      updateCopyUi();
+      document.querySelector('#language-toggle').disabled = true;
       let copied = false;
       try {
         if (navigator.clipboard?.writeText) {
@@ -225,15 +244,12 @@
       } catch (_) {
         copied = legacyCopy(text);
       } finally {
-        copyToday.disabled = false;
-        copyToday.textContent = '一键复制今日日常';
+        copyBusy = false;
+        document.querySelector('#language-toggle').disabled = false;
       }
-      status.dataset.error = String(!copied);
-      status.textContent = copied ? '已复制 4 个 Boss 和所属副本，可直接粘贴分享。' : '复制未完成，请使用下方文本手动复制。';
-      if (copied) {
-        document.querySelector('#copy-fallback').hidden = true;
-        copyToday.focus({ preventScroll: true });
-      }
+      copyState = copied ? 'success' : 'manual';
+      updateCopyUi();
+      if (copied) copyToday.focus({ preventScroll: true });
     });
   }
 
@@ -243,6 +259,12 @@
       scrollToDay(R.cycleIndex(renderedUtcDate));
     });
   }
+
+  I.onChange(() => {
+    refresh();
+    const toggleText = document.querySelector('#forecast-toggle-text');
+    if (toggleText) toggleText.textContent = t(forecastExpanded ? 'collapse' : 'expand');
+  });
 
   document.addEventListener('visibilitychange', () => { if (!document.hidden) refresh(); });
   window.addEventListener('focus', refresh);

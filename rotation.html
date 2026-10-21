@@ -4,64 +4,67 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#101715">
-  <meta name="description" content="激战2每日团队悬赏完整12天轮换表，包含4组Boss、实际Boss名称与副本名。">
-  <title>12天循环表 · GW2 Raid Bounties</title>
+  <meta name="description" content="激战2每日团队悬赏完整12天轮换表，包含4组Boss、实际Boss名称与副本名。" data-i18n-content="descriptionRotation">
+  <title data-i18n="rotationTitle">12天循环表 · GW2 Raid Bounties</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/styles.css?v=2">
   <script defer src="assets/js/data.js"></script>
   <script defer src="assets/js/rotation.js"></script>
-  <script defer src="assets/js/app.js"></script>
+  <script defer src="assets/js/encounters-zh.js?v=2"></script>
+  <script defer src="assets/js/i18n.js?v=2"></script>
+  <script defer src="assets/js/app.js?v=2"></script>
 </head>
 <body data-page="rotation">
-  <a class="skip-link" href="#main-content">跳转到主要内容</a>
+  <a class="skip-link" href="#main-content"><span data-i18n="skip">跳转到主要内容</span></a>
   <div class="site-shell">
     <header class="site-header">
-      <a class="brand" href="index.html" aria-label="返回GW2日常十人本首页">
-        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none"><path d="m20 3 15 9v16l-15 9L5 28V12Z" stroke="currentColor"/><path d="m12 27 5-14 3 6 3-6 5 14-8-5Z" fill="currentColor"/><path d="m20 6 2 4-2 3-2-3Z" fill="currentColor"/></svg></span>
-        <span class="brand-copy"><strong>GW2 <span>RAID</span></strong><small>泰瑞亚 · 每日悬赏指南</small></span>
+      <a class="brand" href="index.html" aria-label="返回GW2日常十人本首页" data-i18n-aria-label="homeAria">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none"><path d="m20 3 15 9v16l-15 9L5 28V12Z" stroke="currentColor"/></path><path d="m12 27 5-14 3 6 3-6 5 14-8-5Z" fill="currentColor"/></path><path d="m20 6 2 4-2 3-2-3Z" fill="currentColor"/></path></svg></span>
+        <span class="brand-copy"><strong>GW2 <span>RAID</span></strong><small><span data-i18n="tagline">泰瑞亚 · 每日悬赏指南</span></small></span>
       </a>
-      <nav class="nav" aria-label="主导航">
-        <a href="index.html" class="nav-link"><span aria-hidden="true">◈</span> 今日日常</a>
-        <a href="rotation.html" class="nav-link active" aria-current="page"><span aria-hidden="true">▦</span> 12天循环表</a>
+      <nav class="nav" aria-label="主导航" data-i18n-aria-label="nav">
+        <a href="index.html" class="nav-link"><span aria-hidden="true">◈</span> <span data-i18n="today">今日日常</span></a>
+        <a href="rotation.html" class="nav-link active" aria-current="page"><span aria-hidden="true">▦</span> <span data-i18n="rotation">12天循环表</span></a>
       </nav>
-      <span class="header-status"><span class="tiny-led" aria-hidden="true"></span> 每日 08:00 刷新 <span>UTC+8</span></span>
+      <span class="header-status"><span class="tiny-led" aria-hidden="true"></span> <span data-i18n="headerReset">每日 08:00 刷新</span> <span>UTC+8</span></span>
+      <button id="language-toggle" class="language-toggle" type="button" aria-label="Switch to English" data-i18n-aria-label="switchLanguage">English</button>
     </header>
 
     <main id="main-content">
       <section class="rotation-hero" aria-labelledby="rotation-title">
-        <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> ROTATION OVERVIEW <span class="eyebrow-separator">/</span> 完整轮换周期</p>
-        <h1 id="rotation-title">12天循环表<span class="hero-dot">.</span></h1>
-        <p>每天四组各出现一个目标，完整组合每12天重复一次。表格中的日期会随当前周期自动更新。</p>
-        <div class="rotation-meta"><span id="period-label">正在计算本轮日期…</span><span id="rotation-today">今天：—</span></div>
+        <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> <span data-i18n="rotationEyebrow">ROTATION OVERVIEW</span> <span class="eyebrow-separator">/</span> <span data-i18n="rotationSubtitle">完整轮换周期</span></p>
+        <h1 id="rotation-title"><span data-i18n="rotation">12天循环表</span><span class="hero-dot">.</span></h1>
+        <p><span data-i18n="rotationIntro">每天四组各出现一个目标，完整组合每12天重复一次。表格中的日期会随当前周期自动更新。</span></p>
+        <div class="rotation-meta"><span id="period-label"><span data-i18n="loadingPeriod">正在计算本轮日期…</span></span><span id="rotation-today"><span data-i18n="loadingToday">今天：—</span></span></div>
       </section>
 
-      <div id="cycle-track" class="cycle-track" aria-label="12天周期导航"></div>
+      <div id="cycle-track" class="cycle-track" aria-label="12天周期导航" data-i18n-aria-label="cycleNav"></div>
 
-      <section class="section" aria-label="完整每日悬赏表">
+      <section class="section" aria-label="完整每日悬赏表" data-i18n-aria-label="tableAria">
         <div class="section-heading table-heading">
-          <div><p class="section-kicker">ALL 12 DAYS</p><h2>每日悬赏总览</h2></div>
-          <button class="secondary-button" type="button" id="jump-today">定位今天 <span aria-hidden="true">↓</span></button>
+          <div><p class="section-kicker"><span data-i18n="allDays">ALL 12 DAYS</span></p><h2><span data-i18n="overview">每日悬赏总览</span></h2></div>
+          <button class="secondary-button" type="button" id="jump-today"><span data-i18n="jump">定位今天</span> <span aria-hidden="true">↓</span></button>
         </div>
-        <div class="legend"><span><i class="legend-mark" aria-hidden="true"></i> 今天</span><span>每格：Boss 名称 / 所属副本 / 悬赏任务</span></div>
-        <div class="table-scroll" role="region" aria-label="12天循环表，可横向滚动" tabindex="0">
+        <div class="legend"><span><i class="legend-mark" aria-hidden="true"></i> <span data-i18n="currentDay">今天</span></span><span><span data-i18n="legend">每格：Boss 名称 / 所属副本 / 悬赏任务</span></span></div>
+        <div class="table-scroll" role="region" aria-label="12天循环表，可横向滚动" tabindex="0" data-i18n-aria-label="scrollTable">
           <table class="rotation-table">
-            <thead><tr><th scope="col">轮换日期</th><th scope="col">第 01 组</th><th scope="col">第 02 组</th><th scope="col">第 03 组</th><th scope="col">第 04 组</th></tr></thead>
+            <thead><tr><th scope="col"><span data-i18n="dateColumn">轮换日期</span></th><th scope="col"><span data-i18n="group01">第 01 组</span></th><th scope="col"><span data-i18n="group02">第 02 组</span></th><th scope="col"><span data-i18n="group03">第 03 组</span></th><th scope="col"><span data-i18n="group04">第 04 组</span></th></tr></thead>
             <tbody id="rotation-tbody"></tbody>
           </table>
         </div>
         <div id="mobile-rotation" class="mobile-rotation"></div>
-        <p class="table-footnote">第13天重新回到第1天。6项组每6天重复，12项组每12天重复。每天 UTC 00:00 刷新。</p>
+        <p class="table-footnote"><span data-i18n="footnote">第13天重新回到第1天。6项组每6天重复，12项组每12天重复。每天 UTC 00:00 刷新。</span></p>
       </section>
 
-      <section class="bottom-link" aria-label="返回首页">
-        <div><p class="section-kicker">BACK TO TODAY</p><h2>先看看今天打什么？</h2><p>首页为你整理好当天4个 Boss 和未来7天的安排。</p></div>
-        <a class="text-action" href="index.html">返回今日日常 <span aria-hidden="true">↗</span></a>
+      <section class="bottom-link" aria-label="返回首页" data-i18n-aria-label="backAria">
+        <div><p class="section-kicker"><span data-i18n="backKicker">BACK TO TODAY</span></p><h2><span data-i18n="backHeading">先看看今天打什么？</span></h2><p><span data-i18n="backHint">首页为你整理好当天4个 Boss 和未来7天的安排。</span></p></div>
+        <a class="text-action" href="index.html"><span data-i18n="backLink">返回今日日常</span> <span aria-hidden="true">↗</span></a>
       </section>
     </main>
 
     <footer class="site-footer">
-      <div><strong>GW2 RAID</strong> <span class="footer-divider">·</span> 非官方玩家制作查询工具</div>
-      <div>数据参考 <a href="https://wiki.guildwars2.com/wiki/Daily_Raid_Bounties" target="_blank" rel="noopener noreferrer">Guild Wars 2 Wiki ↗</a><span class="footer-divider">·</span>核对日期 2026-10-21</div>
+      <div><strong>GW2 RAID</strong> <span class="footer-divider">·</span> <span data-i18n="footerRotation">非官方玩家制作查询工具</span></div>
+      <div><span data-i18n="sourceLabel">数据参考</span> <a href="https://wiki.guildwars2.com/wiki/Daily_Raid_Bounties" target="_blank" rel="noopener noreferrer">Guild Wars 2 Wiki ↗</a><span class="footer-divider">·</span><span><span data-i18n="verified">核对日期 2026-10-21</span></span></div>
     </footer>
   </div>
 </body>
